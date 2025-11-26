@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Amazon Deals – Premium Affiliate Store</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+  }
+  header {
+    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+    color: #fff;
+    padding: 30px 20px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+  .search-container {
+    margin: 20px auto;
+    max-width: 700px;
+    display: flex;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+  .search-container input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    font-size: 1rem;
+    border-radius: 10px 0 0 10px;
+  }
+  .search-container button {
+    padding: 0 20px;
+    border: none;
+    background: #3b82f6;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0 10px 10px 0;
+    font-size: 1rem;
+  }
+  .grid {
+    max-width: 1200px;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+  }
+  .product-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: 0.25s;
+  }
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  }
+  .product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+  }
+  .product-card h3 {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    height: 45px;
+    overflow: hidden;
+  }
+  .product-card a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    background: #10b981;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.2s;
+  }
+  .product-card a:hover {
+    background: #059669;
+  }
+  footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Amazon Best Deals Store</h1>
+  <p>Top products curated for you. Updated daily.</p>
+</header>
+<div class="search-container">
+  <input type="text" id="searchBar" placeholder="Search products...">
+  <button onclick="searchProducts()">Search</button>
+</div>
+<div class="grid" id="productGrid"></div>
+<footer>
+  <p>As an Amazon Associate I earn from qualifying purchases.</p>
+</footer>
+<script>
+const PRODUCTS = [
+  { asin: "B0FRF5LYSR", title: "Product B0FRF5LYSR", image: "https://m.media-amazon.com/images/I/41gqzSYSLaL._SX342_SY445_QL70_ML2_.jpg", link: "https://amzn.to/3M26nDJ" },
+  { asin: "B0FLXBNFS1", title: "Product B0FLXBNFS1", image: "https://m.media-amazon.com/images/I/7119F3mcyrL._AC_SY300_SX300_QL70_ML2_.jpg", link: "https://amzn.to/4imz8H7" },
+  { asin: "B0FSZX3F9Z", title: "Product B0FSZX3F9Z", image: "https://m.media-amazon.com/images/I/71k7vryVDGL._AC_SX679_.jpg", link: "https://amzn.to/4okK35Q" },
+  { asin: "B0FDQJQWQG", title: "Product B0FDQJQWQG", image: "https://m.media-amazon.com/images/I/61RbPQwcvYL._AC_SY300_SX300_QL70_ML2_.jpg", link: "https://amzn.to/48k9lLc" },
+  { asin: "B0FN8GK19M", title: "Product B0FN8GK19M", image: "https://m.media-amazon.com/images/I/61IXxBfLHJL._AC_SX679_.jpg", link: "https://amzn.to/48kdFu7" },
+  { asin: "B0FFN4QV78", title: "Product B0FFN4QV78", image: "https://m.media-amazon.com/images/I/71psz4BNoBL._AC_SX679_.jpg", link: "https://amzn.to/3XiN4IE" },
+  { asin: "B0FQMYTHZ8", title: "Product B0FQMYTHZ8", image: "https://m.media-amazon.com/images/I/71gXieqjsJL._AC_SX425_.jpg", link: "https://amzn.to/49At8IF" },
+  { asin: "B0FDBCMVC8", title: "Product B0FDBCMVC8", image: "https://m.media-amazon.com/images/I/71wkiZNyaKL._AC_SY300_SX300_QL70_ML2_.jpg", link: "https://amzn.to/4p5sCr4" },
+  { asin: "B0FC2HWYKY", title: "Product B0FC2HWYKY", image: "https://m.media-amazon.com/images/I/81ro73MD3jL._AC_SY300_SX300_QL70_ML2_.jpg", link: "https://amzn.to/4oWwb2F" },
+  { asin: "B0FPM59XFY", title: "Product B0FPM59XFY", image: "https://m.media-amazon.com/images/I/81biFQPsPFL._AC_SX679_.jpg", link: "https://amzn.to/4oWweLT" },
+  { asin: "B0FL7LWWSM", title: "Product B0FL7LWWSM", image: "https://m.media-amazon.com/images/I/71YnqsX5oLL._AC_SY575_.jpg", link: "https://amzn.to/43Tdc0u" },
+  { asin: "B0FS1RDGWZ", title: "Product B0FS1RDGWZ", image: "https://m.media-amazon.com/images/I/71cwKfhstmL._AC_SX679_.jpg", link: "https://amzn.to/3JVHedl" },
+  { asin: "B0FNVS4RWC", title: "Product B0FNVS4RWC", image: "https://m.media-amazon.com/images/I/71FGWxoN1oL._AC_SX679_.jpg", link: "https://amzn.to/4rmyQUM" },
+  { asin: "B0FXDRN7DS", title: "Product B0FXDRN7DS", image: "https://m.media-amazon.com/images/I/71nJCfZI22L._AC_SY575_.jpg", link: "https://amzn.to/4rlEJl7" },
+  { asin: "B0C6F6S8B7", title: "Product B0C6F6S8B7", image: "https://m.media-amazon.com/images/I/61IeB-qRClL._AC_SY575_.jpg", link: "https://amzn.to/3MoLSkD" },
+  { asin: "B0FRYV9ZP4", title: "Product B0FRYV9ZP4", image: "https://m.media-amazon.com/images/I/51MOEqb58XL._AC_SX679_.jpg", link: "https://amzn.to/4iiMFj2" },
+  { asin: "B0FRM8KCNC", title: "Product B0FRM8KCNC", image: "https://m.media-amazon.com/images/I/51mFDFxrgEL._AC_SX679_.jpg", link: "https://amzn.to/3JZsASm" },
+  { asin: "B0FFMGM1MY", title: "Product B0FFMGM1MY", image: "https://m.media-amazon.com/images/I/71ByghK1NAL._AC_SY300_SX300_QL70_ML2_.jpg", link: "https://amzn.to/49YIIy7" },
+  { asin: "B0DZCMXQ7T", title: "Product B0DZCMXQ7T", image: "https://m.media-amazon.com/images/I/61jTVXrsndL._AC_SY575_.jpg", link: "https://amzn.to/4p3dH0D" },
+  { asin: "B0FGWNM8HS", title: "Product B0FGWNM8HS", image: "https://m.media-amazon.com/images/I/61X6ljIqcRL._AC_SX679_.jpg", link: "https://amzn.to/4pwhzXw" },
+  { asin: "B0F2FQM91H", title: "Product B0F2FQM91H", image: "https://m.media-amazon.com/images/I/51svuWDT4jL._AC_SY300_SX300_QL70_ML2_.jpg", link: "https://amzn.to/4px56D4" }
+];
+function renderProducts(list) {
+  const grid = document.getElementById("productGrid");
+  grid.innerHTML = list.map(p => `
+    <div class="product-card">
+      <img src="${p.image}" alt="${p.title}">
+      <h3>${p.title}</h3>
+      <a href="${p.link}" target="_blank">View on Amazon</a>
+    </div>`).join("");
+}
+function searchProducts() {
+  const keyword = document.getElementById("searchBar").value.toLowerCase();
+  const results = PRODUCTS.filter(p => p.title.toLowerCase().includes(keyword) || p.asin.toLowerCase().includes(keyword));
+  renderProducts(results);
+}
+renderProducts(PRODUCTS);
+</script>
+</body>
+</html>
