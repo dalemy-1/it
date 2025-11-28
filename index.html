@@ -546,7 +546,7 @@
             style note.
           </li>
           <li>
-            Click <strong>"Go to Amazon"</strong> to see full details, current
+            Click <strong>"View details"</strong> to see full details, current
             pricing and customer reviews.
           </li>
         </ul>
@@ -614,17 +614,17 @@
       </article>
 
       <article class="card info-card">
-        <h3>About this DE shortlist</h3>
+        <h3>About this IT shortlist</h3>
         <p>
           All products on this page are selected from Amazon.it using publicly
           available information such as product descriptions, feature lists and
-          typical German usage scenarios. The focus is on clear, balanced everyday
+          typical Italian usage scenarios. The focus is on clear, balanced everyday
           picks rather than chasing only the newest or most expensive models.
         </p>
         <p>
           We do not claim that any single item here is objectively the “best”
           choice for everyone. Instead, each entry is a snapshot of a product that
-          could be a reasonable option for German shoppers when matched to the
+          could be a reasonable option for Italian shoppers when matched to the
           right person and budget.
         </p>
       </article>
@@ -647,7 +647,7 @@
       <article class="card info-card">
         <h3>Affiliate disclosure</h3>
         <p>
-          Deep Review • Smart Picks DE participates in the Amazon Associates
+          Deep Review • Smart Picks IT participates in the Amazon Associates
           Program. This means that we may earn a small commission on qualifying
           purchases made through links marked as Amazon affiliate links, at no
           additional cost to you.
@@ -678,7 +678,7 @@
           class="btn btn-primary"
           id="reviewModalAmazonLink"
         >
-          Go to Amazon
+          View details
         </a>
       </div>
     </div>
@@ -767,14 +767,14 @@
       const broadCat = CATEGORY_MAP[p.category] || "Office & Daily Use";
       const title = `Product #${index + 1} – ${broadCat} Pick`;
       const hook =
-        `This pick is designed as a practical option in the ${broadCat.toLowerCase()} space for German shoppers, balancing everyday performance and value.`;
+        `This pick is designed as a practical option in the ${broadCat.toLowerCase()} space for Italian shoppers, balancing everyday performance and value.`;
       const details =
-        "Use this shortlist as a quick way to spot products that may deserve a closer look on Amazon.it. Each card focuses on simple fit, features and everyday German use rather than chasing extreme specs.";
+        "Use this shortlist as a quick way to spot products that may deserve a closer look on Amazon.it. Each card focuses on simple fit, features and everyday Italian use rather than chasing extreme specs.";
       const approxPriceLabel = "Check live price on Amazon.it";
       const amazonUrl = `https://${AMAZON_DOMAIN}/dp/${p.asin}/?tag=${AFFILIATE_TAG}`;
       const reviewText =
         `${title}\n\n` +
-        `This Germany-focused editorial note highlights key reasons why this item might be a good fit:\n` +
+        `This Italy-focused editorial note highlights key reasons why this item might be a good fit:\n` +
         `• Everyday use: aimed at typical home or personal use rather than specialist scenarios.\n` +
         `• Effort vs. benefit: chosen where setup, maintenance and day-to-day use feel reasonable for most people.\n` +
         `• Value: not always the absolute cheapest, but offering a sensible balance of features for the price.\n\n` +
@@ -836,7 +836,7 @@
                   Read review
                 </button>
                 <a class="btn btn-primary" href="${p.amazonUrl}" target="_blank" rel="nofollow noopener sponsored">
-                  Go to Amazon
+                  View details
                 </a>
               </div>
             </div>
